@@ -2,10 +2,13 @@ package org.jump.soft.animals.core.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import org.jump.soft.animals.core.enumeration.Gender;
 import org.springframework.data.annotation.Id;
 
 @Entity
@@ -27,13 +30,14 @@ public class Animal {
     private long breedId;
 
     @Column(name = "gender", nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     public Animal() {
 
     }
 
-    public Animal(long id, String name, int age, long breedId, String gender) {
+    public Animal(long id, String name, int age, long breedId, Gender gender) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -73,15 +77,14 @@ public class Animal {
         this.breedId = breedId;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    // toString method for a more readable output
     @Override
     public String toString() {
         return "Animal{" +

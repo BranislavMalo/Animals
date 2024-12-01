@@ -8,6 +8,7 @@ import org.jump.soft.animals.core.dto.AnimalWithDetailsDto;
 import org.jump.soft.animals.core.exceptions.DuplicateAnimalException;
 import org.jump.soft.animals.core.models.Animal;
 import org.jump.soft.animals.core.repository.AnimalRepository;
+import org.jump.soft.animals.core.repository.BreedRepository;
 import org.jump.soft.animals.core.services.utils.AnimalServiceUtility;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class AnimalServiceImpl implements AnimalService {
 
     private final AnimalRepository animalRepository;
+    private final BreedRepository breedRepository;
 
     @Autowired
-    public AnimalServiceImpl(AnimalRepository animalRepository) {
+    public AnimalServiceImpl(AnimalRepository animalRepository, BreedRepository breedRepository) {
         this.animalRepository = animalRepository;
+        this.breedRepository = breedRepository;
     }
 
-    @Transactional
     @Override
     public void addAnimal(AnimalDto animalDto) {
         try {
-            AnimalServiceUtility.validateAnimalDto(animalDto, false);
+            AnimalServiceUtility.validateAnimalDto(animalDto, breedRepository, false);
+            if (!breedRepository.existsById(animalDto.getBreedId())) {
+                throw new IllegalArgumentException("Breed with ID " + animalDto.getBreedId() + " does not exist.");
+            }
 
             Animal animal = new Animal();
             ModelMapper modelMapper = new ModelMapper();
@@ -63,10 +68,9 @@ public class AnimalServiceImpl implements AnimalService {
         throw new EntityNotFoundException(String.format("Animal with id %d not found", id));
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
     public void updateAnimal(long id, AnimalDto animalDto) {
-        AnimalServiceUtility.validateAnimalDto(animalDto, true);
+        AnimalServiceUtility.validateAnimalDto(animalDto, breedRepository, true);
 
         Optional<Animal> animalOpt = animalRepository.findById(id);
         if (animalOpt.isPresent()) {

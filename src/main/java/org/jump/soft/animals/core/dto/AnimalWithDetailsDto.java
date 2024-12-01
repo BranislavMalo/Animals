@@ -2,6 +2,7 @@ package org.jump.soft.animals.core.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import org.jump.soft.animals.core.enumeration.Gender;
 
 @Entity
 public class AnimalWithDetailsDto {
@@ -10,13 +11,13 @@ public class AnimalWithDetailsDto {
     private String name;
     private int age;
     private String breedName;
-    private String gender;
+    private Gender gender;
 
     public AnimalWithDetailsDto() {
 
     }
 
-    public AnimalWithDetailsDto(long id, String name, int age, String breedName, String gender) {
+    public AnimalWithDetailsDto(long id, String name, int age, String breedName, Gender gender) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -56,11 +57,11 @@ public class AnimalWithDetailsDto {
         this.breedName = breedName;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 }

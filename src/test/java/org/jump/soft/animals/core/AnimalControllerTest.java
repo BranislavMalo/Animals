@@ -6,6 +6,7 @@ import java.util.List;
 import org.jump.soft.animals.core.controllers.AnimalController;
 import org.jump.soft.animals.core.dto.AnimalDto;
 import org.jump.soft.animals.core.dto.AnimalWithDetailsDto;
+import org.jump.soft.animals.core.enumeration.Gender;
 import org.jump.soft.animals.core.services.AnimalService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -128,8 +129,8 @@ class AnimalControllerTest {
     @Test
     void testGetAnimalsWithDetails() throws Exception {
         List<AnimalWithDetailsDto> animalsWithDetails = Arrays.asList(
-                new AnimalWithDetailsDto(1, "Mufasa", 15, "Afganský chrt", "MALE"),
-                new AnimalWithDetailsDto(2, "Simba", 10, "Americká akita", "MALE")
+                new AnimalWithDetailsDto(1, "Mufasa", 15, "Afganský chrt", Gender.MALE),
+                new AnimalWithDetailsDto(2, "Simba", 10, "Americká akita", Gender.MALE)
         );
         when(animalService.getAnimalsWithDetails()).thenReturn(animalsWithDetails);
 

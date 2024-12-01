@@ -59,7 +59,6 @@ public class Breed {
         this.animals = animals;
     }
 
-    // toString method for a more readable output
     @Override
     public String toString() {
         return "Animal{" +
