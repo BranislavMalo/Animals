@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: jump
+      POSTGRES_PASSWORD: soft
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"  # Expose PostgreSQL's port
+    networks:
+      - backend
+
+  app:
+    build: ..
+    depends_on:
+      - db  # Ensure the db container starts before the app
+    ports:
+      - "8080:8080"  # Expose Animals app's port
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres  # Refer to db by service name
+      SPRING_DATASOURCE_USERNAME: jump
+      SPRING_DATASOURCE_PASSWORD: soft
+    networks:
+      - backend
+
+networks:
+  myapp-network:
+    driver: bridge
