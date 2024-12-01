@@ -25,5 +25,5 @@ services:
       - backend
 
 networks:
-  myapp-network:
+  backend:
     driver: bridge
