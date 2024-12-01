@@ -86,6 +86,9 @@ docker-compose down
 
 ## Endpoints
 
+### Attached Postman Collection
+Template HTTP requests for the endpoints are located in the postman_collection folder.
+
 ### Endpoint 1: add-animal
 
 Creates the animal entity
