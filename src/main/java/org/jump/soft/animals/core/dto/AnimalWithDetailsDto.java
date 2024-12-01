@@ -1,6 +1,11 @@
 package org.jump.soft.animals.core.dto;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class AnimalWithDetailsDto {
+    @Id
     private long id;
     private String name;
     private int age;

@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Optional;
 import org.jump.soft.animals.core.dto.AnimalDto;
 import org.jump.soft.animals.core.dto.AnimalWithDetailsDto;
+import org.jump.soft.animals.core.exceptions.DuplicateAnimalException;
 import org.jump.soft.animals.core.models.Animal;
 import org.jump.soft.animals.core.repository.AnimalRepository;
 import org.jump.soft.animals.core.services.utils.AnimalServiceUtility;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,20 +29,26 @@ public class AnimalServiceImpl implements AnimalService {
     @Transactional
     @Override
     public void addAnimal(AnimalDto animalDto) {
-        AnimalServiceUtility.validateAnimal(animalDto);
+        try {
+            AnimalServiceUtility.validateAnimalDto(animalDto, false);
 
-        Animal animal = new Animal();
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(animalDto, animal);
+            Animal animal = new Animal();
+            ModelMapper modelMapper = new ModelMapper();
+            modelMapper.map(animalDto, animal);
 
-        animalRepository.saveAndFlush(animal);
+            animalRepository.saveAndFlush(animal);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateAnimalException("Animal with the same name already exists.");
+        }
     }
 
+    @Transactional
     @Override
     public void removeAnimal(long id) {
         Optional<Animal> animalOpt = animalRepository.findById(id);
         if (animalOpt.isPresent()) {
             animalRepository.deleteById(id);
+            return;
         }
         throw new EntityNotFoundException(String.format("Animal with id %d not found", id));
     }
@@ -58,13 +66,17 @@ public class AnimalServiceImpl implements AnimalService {
     @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
     public void updateAnimal(long id, AnimalDto animalDto) {
+        AnimalServiceUtility.validateAnimalDto(animalDto, true);
+
         Optional<Animal> animalOpt = animalRepository.findById(id);
         if (animalOpt.isPresent()) {
             Animal animal = animalOpt.get();
             ModelMapper modelMapper = new ModelMapper();
             modelMapper.map(animalDto, animal);
             animalRepository.save(animal);
+            return;
         }
+        throw new EntityNotFoundException(String.format("Animal with id %d not found", id));
     }
 
     @Override

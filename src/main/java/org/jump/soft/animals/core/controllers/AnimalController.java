@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 import org.jump.soft.animals.core.dto.AnimalDto;
 import org.jump.soft.animals.core.dto.AnimalWithDetailsDto;
+import org.jump.soft.animals.core.exceptions.DuplicateAnimalException;
 import org.jump.soft.animals.core.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +36,7 @@ public class AnimalController {
         try {
             animalService.addAnimal(animalDto);
             return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DuplicateAnimalException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error-message", e.getMessage()));
         }
@@ -70,6 +72,9 @@ public class AnimalController {
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error-message", e.getMessage()));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error-message", e.getMessage()));
         }
     }

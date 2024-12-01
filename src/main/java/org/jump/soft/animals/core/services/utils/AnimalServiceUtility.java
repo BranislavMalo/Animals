@@ -8,7 +8,7 @@ public class AnimalServiceUtility {
         throw new UnsupportedOperationException("Utility class");
     }
 
-    public static void validateAnimal(AnimalDto animalDto) {
+    public static void validateAnimalDto(AnimalDto animalDto, boolean isUpdate) {
         if (animalDto == null) {
             throw new IllegalArgumentException("Animal data cannot be null");
         }
@@ -27,6 +27,12 @@ public class AnimalServiceUtility {
 
         if (animalDto.getGender() == null || animalDto.getGender().isEmpty()) {
             throw new IllegalArgumentException("Animal gender is required");
+        }
+
+        if (isUpdate) {
+            if (animalDto.getId() <= 0) {
+                throw new IllegalArgumentException("Animal ID is required for update and must be a positive number");
+            }
         }
     }
 }

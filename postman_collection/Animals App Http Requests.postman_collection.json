@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "adeefedb-6a91-412e-854f-aee27848ab06",
+		"name": "Animals App Http Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ADD ANIMAL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Garnet\",\n    \"age\": 15,\n    \"breedId\": 1,\n    \"gender\": \"MALE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/animals/add-animal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"animals",
+						"add-animal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REMOVE ANIMAL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/animals/remove-animal/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"animals",
+						"remove-animal",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ANIMALS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/animals/get-animals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"animals",
+						"get-animals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ANIMALS WITH DETAILS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/animals/get-animals-with-details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"animals",
+						"get-animals-with-details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ANIMAL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/animals/get-animal/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"animals",
+						"get-animal",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE ANIMAL",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Ashara\",\n    \"age\": 16,\n    \"breedId\": 3,\n    \"gender\": \"FEMALE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/animals/update-animal/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"animals",
+						"update-animal",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
