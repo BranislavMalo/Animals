@@ -1,7 +1,6 @@
 package org.jump.soft.animals.core.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Optional;
 import org.jump.soft.animals.core.dto.AnimalDto;
@@ -43,6 +42,8 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public void removeAnimal(long id) {
+        animalRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
         animalRepository.deleteById(id);
     }
 

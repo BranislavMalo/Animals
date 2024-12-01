@@ -22,19 +22,39 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AnimalController.class)
 @ExtendWith(MockitoExtension.class)
-class ActualRatesControllerTest {
+class AnimalControllerTest {
 
     @MockitoBean
     private AnimalService animalService;
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Test
+    void testCreateAnimal() throws Exception {
+        long animalId = 1L;
+        AnimalDto animalDto = new AnimalDto();
+        animalDto.setName("Scar");
+        animalDto.setAge(7);
+        animalDto.setBreedId(3);
+        animalDto.setGender("MALE");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/api/animals/add-animal", animalId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(animalDto)))
+                .andExpect(status().isOk());
+
+        verify(animalService, times(1)).addAnimal(eq(animalDto));
+    }
 
     @Test
     void testGetAnimal() throws Exception {
@@ -69,7 +89,12 @@ class ActualRatesControllerTest {
     @Test
     void testUpdateAnimal() throws Exception {
         long animalId = 1L;
-        AnimalDto animalDto = new AnimalDto(1, "UpdatedName", 16, 2, "FEMALE");
+        AnimalDto animalDto = new AnimalDto();
+        animalDto.setId(animalId);
+        animalDto.setName("Fiona");
+        animalDto.setAge(13);
+        animalDto.setBreedId(5);
+        animalDto.setGender("FEMALE");
         ObjectMapper objectMapper = new ObjectMapper();
 
         mockMvc.perform(put("/api/animals/update-animal/{id}", animalId)

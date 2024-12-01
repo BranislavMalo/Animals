@@ -1,5 +1,7 @@
 package org.jump.soft.animals.core.dto;
 
+import java.util.Objects;
+
 public class AnimalDto {
     private long id;
     private String name;
@@ -57,5 +59,21 @@ public class AnimalDto {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AnimalDto animalDto = (AnimalDto) o;
+        return age == animalDto.age &&
+                Objects.equals(name, animalDto.name) &&
+                Objects.equals(breedId, animalDto.breedId) &&
+                Objects.equals(gender, animalDto.gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, breedId, gender);
     }
 }
