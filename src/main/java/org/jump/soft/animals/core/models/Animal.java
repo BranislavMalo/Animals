@@ -8,9 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import lombok.Data;
 import org.jump.soft.animals.core.enumeration.Gender;
 import org.springframework.data.annotation.Id;
 
+@Data
 @Entity
 @Table(name = "ANIMAL")
 public class Animal {
@@ -32,67 +34,4 @@ public class Animal {
     @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    public Animal() {
-
-    }
-
-    public Animal(long id, String name, int age, long breedId, Gender gender) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.breedId = breedId;
-        this.gender = gender;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public long getBreedId() {
-        return breedId;
-    }
-
-    public void setBreedId(long breedId) {
-        this.breedId = breedId;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    @Override
-    public String toString() {
-        return "Animal{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age='" + age + '\'' +
-                ", breedId='" + breedId + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
-    }
 }
