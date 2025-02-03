@@ -1,0 +1,49 @@
+name: Super-Linter
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+jobs:
+  super-lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get a proper list of changed files
+          fetch-depth: 0
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Super-Linter
+        uses: super-linter/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false  # Only lint changed files
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Enable specific linters for Java
+          VALIDATE_JAVA: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_XML: true
+          VALIDATE_YAML: true
+          # Java-specific settings
+          JAVA_FILE_NAME: checkstyle.xml
+          # Optional: Disable specific validators if needed
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_TYPESCRIPT_ES: false
+          VALIDATE_PYTHON: false
+          # For better GitHub status integration
+          DISABLE_ERRORS: false
