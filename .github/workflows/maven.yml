@@ -30,12 +30,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
 
-      - name: Setup Maven
-        uses: s4u/setup-maven-action@v1
-        with:
-          java-version: '21'
-          maven-version: '3.9.6'
-
       # Build and compile the native image using Maven
       - name: Build with Maven
         run: mvn -B package -Pnative
