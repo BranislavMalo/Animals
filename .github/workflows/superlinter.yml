@@ -41,9 +41,3 @@ jobs:
           VALIDATE_YAML: true
           # Java-specific settings
           JAVA_FILE_NAME: checkstyle.xml
-          # Optional: Disable specific validators if needed
-          VALIDATE_JAVASCRIPT_ES: false
-          VALIDATE_TYPESCRIPT_ES: false
-          VALIDATE_PYTHON: false
-          # For better GitHub status integration
-          DISABLE_ERRORS: false
