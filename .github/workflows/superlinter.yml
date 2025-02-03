@@ -40,4 +40,4 @@ jobs:
           VALIDATE_XML: true
           VALIDATE_YAML: true
           # Java-specific settings
-          JAVA_FILE_NAME: google_checks.xml
+          JAVA_FILE_NAME: /google_checks.xml
