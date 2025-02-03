@@ -28,6 +28,11 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Create checkstyle directory
+        run: |
+          mkdir -p /action/lib/.automation
+          curl -o /action/lib/.automation/checkstyle.xml https://raw.githubusercontent.com/checkstyle/checkstyle/master/src/main/resources/google_checks.xml    
+
       - name: Super-Linter
         uses: super-linter/super-linter@v5
         env:
@@ -40,4 +45,4 @@ jobs:
           VALIDATE_XML: true
           VALIDATE_YAML: true
           # Java-specific settings
-          JAVA_FILE_NAME: /google_checks.xml
+          JAVA_FILE_NAME: checkstyle.xml
