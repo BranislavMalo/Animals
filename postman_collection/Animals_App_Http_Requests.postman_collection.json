@@ -41,7 +41,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/animals/remove-animal/1",
+					"raw": "http://localhost:8080/api/animals/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -63,7 +63,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/animals/get-animals",
+					"raw": "http://localhost:8080/api/animals/all-animals",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -84,7 +84,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/animals/get-animals-with-details",
+					"raw": "http://localhost:8080/api/animals/all-animals-with-details",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -105,7 +105,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/animals/get-animal/1",
+					"raw": "http://localhost:8080/api/animals/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -136,7 +136,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/animals/update-animal/1",
+					"raw": "http://localhost:8080/api/animals/1",
 					"protocol": "http",
 					"host": [
 						"localhost"

@@ -65,7 +65,7 @@ class AnimalControllerTest {
         when(animalService.getAnimal(animalId)).thenReturn(animalDto);
 
         // Perform the GET request and check the response
-        mockMvc.perform(get("/api/animals/get-animal/{id}", animalId))
+        mockMvc.perform(get("/api/animals/{id}", animalId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("Mufasa"))
@@ -81,7 +81,7 @@ class AnimalControllerTest {
     void testRemoveAnimal() throws Exception {
         long animalId = 1L;
 
-        mockMvc.perform(delete("/api/animals/remove-animal/{id}", animalId))
+        mockMvc.perform(delete("/api/animals/{id}", animalId))
                 .andExpect(status().isOk());
 
         verify(animalService, times(1)).removeAnimal(animalId);
@@ -98,7 +98,7 @@ class AnimalControllerTest {
         animalDto.setGender("FEMALE");
         ObjectMapper objectMapper = new ObjectMapper();
 
-        mockMvc.perform(put("/api/animals/update-animal/{id}", animalId)
+        mockMvc.perform(put("/api/animals/{id}", animalId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(animalDto)))
                 .andExpect(status().isOk());
@@ -114,7 +114,7 @@ class AnimalControllerTest {
         );
         when(animalService.getAnimals()).thenReturn(animals);
 
-        mockMvc.perform(get("/api/animals/get-animals"))
+        mockMvc.perform(get("/api/animals/all-animals"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(2))
@@ -134,7 +134,7 @@ class AnimalControllerTest {
         );
         when(animalService.getAnimalsWithDetails()).thenReturn(animalsWithDetails);
 
-        mockMvc.perform(get("/api/animals/get-animals-with-details"))
+        mockMvc.perform(get("/api/animals/all-animals-with-details"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(2))
