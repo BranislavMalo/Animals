@@ -49,7 +49,7 @@ jobs:
           sed -i '/<module name="JavadocVariable"\/>/d' "${{ github.workspace }}/.github/linters/checkstyle.xml"
 
       - name: Super-Linter
-        uses: super-linter/super-linter@v5
+        uses: super-linter/super-linter@v7
         env:
           VALIDATE_ALL_CODEBASE: false  # Only lint changed files
           DEFAULT_BRANCH: main
